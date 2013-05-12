@@ -28,6 +28,7 @@ Comment
 
 String
 	:  '"' ( EscSequence | ~('\\'|'"') )* '"'
+	| '{' '"' ( EscSequence | ~'\\' )* '"' '}'
 	;
 
 fragment
