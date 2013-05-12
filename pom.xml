@@ -11,7 +11,7 @@
 	<url>http://byond.awesomeware.org/maven/${project.groupId}/${project.artifactId}/${project.version}</url>
 	<packaging>jar</packaging>
 
-	<parent>
+	<parent> 
 		<groupId>com.byond</groupId>
 		<artifactId>byond-maven-parent</artifactId>
 		<version>1.0.3</version>
@@ -38,7 +38,7 @@
 			<id>hiead</id>
 			<name>Zac Stringham</name>
 			<roles>
-				<role>Project Lead</role>
+				<role>Developer</role>
 			</roles>
 		</developer>
 		<developer>
@@ -46,6 +46,14 @@
 			<id>Stephen001</id>
 			<name>Stephen Badger</name>
 			<timezone>0</timezone>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
+		<developer>
+			<email>adolphc@outlook.com</email>
+			<id>ExPixel</id>
+			<name>Adolph C.</name>
 			<roles>
 				<role>Developer</role>
 			</roles>
