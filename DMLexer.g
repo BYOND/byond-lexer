@@ -22,15 +22,20 @@ Float
 	;
 
 Comment
-	:   '//' ~('\n'|'\r')* '\r'? '\n' {$channel=HIDDEN;}
+	:   '//' ~(NewLine)* NewLine {$channel=HIDDEN;}
 	|   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;
 
 String
-	:  '"' ( EscSequence | ~('\\'|'"') )* '"'
+	:  '"' ( EscSequence | ~('\\'|'"'|NewLine) )* '"'
 	| '{' '"' ( EscSequence | ~'\\' )* '"' '}'
 	;
 
+fragment
+NewLine
+	: '\n'	// '\r'? '\n' is giving me an error...
+	;
+	
 fragment
 Exponent
 	: ('e'|'E') ('+'|'-')? ('0'..'9')+
