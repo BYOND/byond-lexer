@@ -1,5 +1,7 @@
 lexer grammar DMLexer;
 
+@lexer::header { package com.byond.lexer; }
+
 Ident
 	: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
 	;
