@@ -13,7 +13,7 @@ Octal
 	;
 	
 Hex
-	: '0' 'x' ('a'..'f'|'A'..'F'|'0'..'9')+
+	: '0' 'x' HexDigit+
 	;
 
 Float
