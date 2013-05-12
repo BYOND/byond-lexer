@@ -23,18 +23,13 @@ Float
 	;
 
 Comment
-	:   '//' (EscSequence | ~(NewLine))* NewLine {$channel=HIDDEN;}
+	:   '//' (EscSequence | ~('\r'|'\n'))* '\r'? '\n' {$channel=HIDDEN;}
 	|   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;
 
 String
-	:  '"' ( EscSequence | ~('\\'|'"'|NewLine) )* '"'
+	:  '"' ( EscSequence | ~('\\'|'"'|'\r'|'\n') )* '"'
 	| '{' '"' ( EscSequence | ~'\\' )* '"' '}'
-	;
-
-fragment
-NewLine
-	: '\n'	// '\r'? '\n' is giving me an error...
 	;
 	
 fragment
