@@ -43,9 +43,10 @@ Exponent
 	;
 
 fragment
-HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
+HexDigit
+	: ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 fragment
 EscSequence
-    :   '\\' ('t'|'n'|'\\'|'\n')	// TODO: Expand on these.
-    ;
+	:   '\\' ('t'|'n'|'\\'|'\n')	// TODO: Expand on these.
+	;
