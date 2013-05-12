@@ -22,7 +22,7 @@ Float
 	;
 
 Comment
-	:   '//' ~(NewLine)* NewLine {$channel=HIDDEN;}
+	:   '//' (EscSequence | ~(NewLine))* NewLine {$channel=HIDDEN;}
 	|   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
 	;
 
@@ -46,5 +46,5 @@ HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
 fragment
 EscSequence
-    :   '\\' ('t'|'n'|'\\')	// TODO: Expand on these.
+    :   '\\' ('t'|'n'|'\\'|'\n')	// TODO: Expand on these.
     ;
