@@ -25,50 +25,21 @@ Float
   ;
 
 Comment
-  :   '//' (EscSequence | ~('\r'|'\n'))* '\r'? '\n' {$channel=HIDDEN;}
+  :   '//' ( options {greedy=false;} : . )* Linebreak {$channel=HIDDEN;}
   |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
   ;
+
+StringDelimiter: '"';
+
+StringEscape: '\\' .;
+
+EmbeddedExpressionStart: '[';
   
-Identifier  :   ('_'? 'a'..'z'|'A'..'Z')+ ;
-
-// String
-//  :  '"' ( EscSequence | ~('\\'|'"'|'\r'|'\n') )* '"'
-//  | '{' '"' ( EscSequence | ~'\\' )* '"' '}'
-//  ;
-
-String
-  : '"' (Identifier | StringEscape | ~StringSpecials | StringEmbeddedExpression)* '"'
-  | '{"' (Identifier | StringEscape | ~MultilineStringSpecials | StringEmbeddedExpression)* '"}'
-  ;
-//Test: "This is \"a\" string with a [variable] inside of it."
-
-StringSpecials
-  :'"' | '\\' | '[' | '\n'
-  ;
-
-StringEscape
-  : '\\' StringSpecials
-  ;
-
-MultilineStringSpecials
-  :'\\' | '['
-  ;
-
-/**
-<p>
-Embedded expressions in strings.<br />
-e.g. "Normal string [embedded] normal string."
-</p>
-*/
-StringEmbeddedExpression
-  : '[' Identifier ']'
-  ;
-
+EmbeddedExpressionEnd : ']';
 
 Whitespace  : (' '|'\t')+ {skip();};
 
-Linebreak:'\r'? '\n' ;
-
+Linebreak: ('\n'|'\r''\n');
   
 fragment
 Exponent
@@ -78,9 +49,4 @@ Exponent
 fragment
 HexDigit
   : ('0'..'9'|'a'..'f'|'A'..'F') ;
-
-fragment
-EscSequence
-  :   '\\' ('t'|'n'|'\\'|'\n')  // TODO: Expand on these.
-  ;
 
