@@ -29,17 +29,23 @@ Comment
   |   '/*' ( options {greedy=false;} : . )* '*/' {$channel=HIDDEN;}
   ;
 
-StringDelimiter: '"';
+// You'll want to replace this with a more general stream of tokens. I just haven't
+// worked out how you can do stuff similar to jflex's "contexts", to avoid applying
+// rules that aren't relevant to strings.
+String : StringDelimiter ( options {greedy=false;} : . )* StringDelimiter { setText(getText().substring(1, getText().length() - 1)); };
 
-StringEscape: '\\' .;
+StringDelimiter : '"';
 
-EmbeddedExpressionStart: '[';
+EmbeddedExpressionStart : '[';
   
 EmbeddedExpressionEnd : ']';
 
 Whitespace  : (' '|'\t')+ {skip();};
 
-Linebreak: ('\n'|'\r''\n');
+Newline	: Linebreak;
+
+fragment
+Linebreak : ('\n'|'\r''\n');
   
 fragment
 Exponent
